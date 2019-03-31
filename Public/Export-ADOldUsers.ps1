@@ -14,18 +14,19 @@ function Export-ADOldUsers {
 
     $Date = Get-Date -UFormat '%Y-%m-%d'
     New-Path $Path -Type Directory
-    $msg = "Creating Old AD users report at $Path..."
-    Write-Host -Back Black -Fore Magenta $msg
+    Write-Host @Cyan (
+	"Creating Old AD users report at $Path..."
+    )
 
     $Selection = @(
 	@{
 	    Name = 'AD Enabled'
 	    Expression = {$_.Enabled}
-	},
+	}
 	@{
 	    Name = 'AD Sam Account Name'
 	    Expression = {$_.SamAccountName}
-	},
+	}
 	@{
 	    Name = 'AD Last Logon Date'
 	    # Piping date object to get-date is more efficient than type conversion.
