@@ -13,7 +13,7 @@ function Get-ADUserGroups {
 	return Get-ADPrincipalGroupMemberShip $Sam -Server $Domain -Credential $Creds
     }
 
-    if ($Domain = Get-ADUserDomain $ADUser) {
+    if ($Domain = Get-ADDomainName $ADUser) {
 	return Get-ADPrincipalGroupMemberShip $Sam -Server $Domain
     } else {
 	Write-Warning "Couldn't find domain for $Sam."

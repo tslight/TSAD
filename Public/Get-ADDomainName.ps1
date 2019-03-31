@@ -1,9 +1,8 @@
-function Get-ADUserDomain {
+function Get-ADDomainName {
     [CmdletBinding(SupportsShouldProcess)]
     Param (
 	[Parameter(Mandatory,ValueFromPipeline)]
-	[Microsoft.ActiveDirectory.Management.ADAccount[]]
-	$ADUser
+	[object[]]$ADObject
     )
 
     begin {
@@ -14,8 +13,8 @@ function Get-ADUserDomain {
     }
 
     process {
-	$DN  = $ADUser.DistinguishedName
-	$Sam = $ADUser.SamAccountName
+	$DN  = $ADObject.DistinguishedName
+	$Sam = $ADObject.SamAccountName
 	Write-Verbose "Finding domain for $Sam..."
 	$DN  = (
 	    [RegEx]::Matches($DN, $RegEx) |

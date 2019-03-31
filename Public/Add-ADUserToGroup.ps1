@@ -26,7 +26,7 @@ function Add-ADUserToGroup {
 	    $Members = Get-ADGroupMember $GroupDN -Server $Domain -Credential $Creds |
 	      Select-Object -ExpandProperty Name
 	} else {
-	    $Domain = Get-ADGroup $GroupDN -Server $ADGlobalCatalog | Get-ADUserDomain
+	    $Domain = Get-ADGroup $GroupDN -Server $ADGlobalCatalog | Get-ADDomainName
 	    $Members = Get-ADGroupMember $GroupDN -Server $Domain |
 	      Select-Object -ExpandProperty Name
 	}
@@ -39,7 +39,7 @@ function Add-ADUserToGroup {
 		if ($Creds) {
 		    Add-ADGroupMember $GroupDN -Members $User -Server $Domain -Credential $Creds
 		} else {
-		    $Domain = Get-ADGroup $GroupDN -Server $ADGlobalCatalog | Get-ADUserDomain
+		    $Domain = Get-ADGroup $GroupDN -Server $ADGlobalCatalog | Get-ADDomainName
 		    Add-ADGroupMember $GroupDN -Members $User -Server $Domain
 		}
 		Write-Verbose "Successfully added $UserName to $GroupName group."

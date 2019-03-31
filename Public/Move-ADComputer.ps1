@@ -8,7 +8,7 @@ function Move-ADComputer {
     )
 
     $Computer	= Get-ADComputer $Hostname -Server $ADGlobalCatalog
-    $Domain	= Get-ADUserDomain $Computer
+    $Domain	= Get-ADDomainName $Computer
     $Computer	= Get-ADComputer $Hostname -Server $Domain
     $CurrentOU	= $Computer.DistinguishedName -Replace ("CN=$Hostname,","")
     $CurrentOU	= Get-ADOrganizationalUnit $CurrentOU -Server $Domain -Properties CanonicalName
@@ -16,7 +16,7 @@ function Move-ADComputer {
     Write-Host @Cyan "$Hostname is in $($CurrentOU.CanonicalName)..."
 
     $TargetOU	= Get-ADOrganizationalUnit -Filter {Name -eq $Target} -Server $ADGlobalCatalog
-    $Domain	= Get-ADUserDomain $TargetOU
+    $Domain	= Get-ADDomainName $TargetOU
     $TargetOU	= Get-ADOrganizationalUnit $TargetOU -Server $Domain -Properties CanonicalName
 
     Write-Host @Magenta "Moving to $($TargetOU.Canonicalname)..."

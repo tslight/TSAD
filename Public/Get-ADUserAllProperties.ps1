@@ -16,7 +16,7 @@ function Get-ADUserAllProperties {
 	if ($Domain -And $Creds) {
 	    Get-ADUser @Params -Server $Domain -Credential $Creds
 	} else {
-	    $Domain = Get-ADUserDomain $ADUser
+	    $Domain = Get-ADDomainName $ADUser
 	    Get-ADUser @Params -Server $Domain
 	}
     }

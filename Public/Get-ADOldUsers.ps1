@@ -44,7 +44,7 @@ function Get-ADOldUsers {
     } else {
 	Get-ADUser @Params | Where-Object {
 	    ($_.LastLogonDate -ne $Null) -And
-	    $_.LastLogonDate -lt $Date
+	    ($_.LastLogonDate -lt $Date)
 	} | Sort-Object -Property LastLogonDate
     }
 }
